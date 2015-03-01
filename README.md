@@ -6,7 +6,7 @@ A nice Ruby client for the LIFX HTTP API. No external dependencies.
 lifx     = LIFX::HTTP::Client.new(access_token: 'c87c73a896b554367fac61f71dd3656af8d93a525a4e87df5952c6078a89d192')
 response = lifx.put_lights_color(selector: 'all', color: 'blue', duration: 3)
 response.success? # => true
-response.data     # => [#<Result id: '43b2f2d97452', status: 'ok'>]
+response.object   # => [#<Result id: '43b2f2d97452', status: 'ok'>]
 ```
 
 ## Installation

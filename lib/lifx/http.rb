@@ -20,6 +20,16 @@ module LIFX
           expects: [200]
         )
       end
+
+      def post_toggle(selector:, state:)
+        Response.new(
+          raw: @connection.post("/v1beta1/lights/#{selector}/toggle", {
+            body: {state: state}
+          }),
+          loader: Loader::Result,
+          expects: [201, 207]
+        )
+      end
     end
 
     class Response
@@ -34,7 +44,13 @@ module LIFX
       end
 
       def object
-        @loader.load(body) if success?
+        return unless success?
+
+        if body.is_a?(Array)
+          body.map { |item| @loader.load(item) }
+        else
+          @loader.load(body)
+        end
       end
 
       def headers
@@ -105,6 +121,27 @@ module LIFX
     module Loader
       class Device
         def self.load(data)
+        end
+      end
+
+      class Result
+        attr_reader :id, :status
+
+        def initialize(id:, status:)
+        end
+
+        def to_h
+          {
+            id: id,
+            status: status
+          }
+        end
+
+        def self.load(data)
+          new(
+            id: data.fetch('id'),
+            status: data.fetch('status')
+          )
         end
       end
     end

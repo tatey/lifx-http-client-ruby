@@ -15,20 +15,84 @@ module LIFX
 
       def get_lights(selector: 'all')
         Response.new(
-          raw: @connection.get("/v1beta1/lights/#{selector}"),
+          raw: @connection.get(path: "/v1beta1/lights/#{selector}"),
           loader: Loader::Device,
           expects: [200]
         )
       end
 
-      def post_toggle(selector:, state:)
+      def put_power(selector:, state:)
         Response.new(
-          raw: @connection.post("/v1beta1/lights/#{selector}/toggle", {
+          raw: @connection.put(
+            path: "/v1beta1/lights/#{selector}/power",
             body: {state: state}
-          }),
+          ),
           loader: Loader::Result,
           expects: [201, 207]
         )
+      end
+
+      def post_toggle(selector:)
+        Response.new(
+          raw: @connection.post(path: "/v1beta1/lights/#{selector}/toggle"),
+          loader: Loader::Result,
+          expects: [201, 207]
+        )
+      end
+
+      def put_lights_color(selector:, color:, duration: nil, power_on: nil)
+        Response.new(
+          raw: @connection.put(
+            path: "/v1beta1/lights/#{selector}/color",
+            body: build_body(color: color, duration: duration, power_on: power_on)
+          ),
+          loader: Loader::Result,
+          expects: [201, 207]
+        )
+      end
+
+      def post_lights_effect_breathe(selector:, color:, from_color: nil, period: nil, cycles: nil, persist: nil, power_on: nil, peak: nil)
+        Response.new(
+          raw: @connection.post(
+            path: "/v1beta1/lights/#{selector}/effects/breathe",
+            body: build_body(
+              color: color,
+              from_color: from_color,
+              period: period,
+              cycles: cycles,
+              persist: persist,
+              power_on: power_on,
+              peak: peak
+            )
+          ),
+          loader: Loader::Result,
+          expects: [201, 207]
+        )
+      end
+
+      def post_lights_effect_pulse(selector:, color:, from_color: nil, period: nil, cycles: nil, persist: nil, power_on: nil, duty_cycle: nil)
+        Response.new(
+          raw: @connection.post(
+            path: "/v1beta1/lights/#{selector}/effects/pulse",
+            body: build_body(
+              color: color,
+              from_color: from_color,
+              period: period,
+              cycles: cycles,
+              persist: persist,
+              power_on: power_on,
+              duty_cycle: duty_cycle
+            )
+          ),
+          loader: Loader::Result,
+          expects: [201, 207]
+        )
+      end
+
+      private
+
+      def build_body(params)
+        params.reject { |name, value| value.nil? }
       end
     end
 
@@ -88,19 +152,19 @@ module LIFX
         @https.verify_mode = OpenSSL::SSL::VERIFY_PEER
       end
 
-      def get(path)
+      def get(path:)
         request = Net::HTTP::Get.new(path)
         perform_request(request)
       end
 
-      def post(path, body: {})
+      def post(path:, body: {})
         request = Net::HTTP::Post.new(path)
         request.body = URI.encode_www_form(body)
         request['Content-Type'] = 'application/x-www-form-urlencoded'
         perform_request(request)
       end
 
-      def put(path, body: {})
+      def put(path:, body: {})
         request = Net::HTTP::Put.new(path)
         request.body = URI.encode_www_form(body)
         request['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -121,6 +185,8 @@ module LIFX
     module Loader
       class Device
         def self.load(data)
+          # TODO
+          new
         end
       end
 

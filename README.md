@@ -25,6 +25,30 @@ $ bundle
 
 ## Usage
 
+### Determining if a response was successful
+
+Use the `success?` predicate to determine if the response was successful.
+
+``` ruby
+response = lifx.put_power(selector: 'all', state: 'on')
+response.success? # => true
+response.object   # => [#<Result id: '43b2f2d97452', status: 'ok'>]
+```
+
+Alternatively, you can opt-in to an exception on failure or `self`
+on success.
+
+``` ruby
+# Failure
+response = lifx.put_power(selector: 'all', state: 'off').success! # => LIFX::HTTP:UnexpectedStatusError
+
+# Success
+response = lifx.put_power(selector: 'all', state: 'on').success!
+response.object # => [#<Result id: '43b2f2d97452', status: 'ok'>]
+```
+
+### List of operations
+
 Get all lights.
 
 ``` ruby
@@ -37,12 +61,6 @@ Get a subset of lights.
 lifx.get_lights(selector: 'id:43b2f2d97452')
 ```
 
-Set color of lights.
-
-``` ruby
-lifx.put_lights_color(selector: 'all', color: 'blue')
-```
-
 Set the power state of the lights.
 
 ``` ruby
@@ -53,6 +71,12 @@ Toggle the power state of the lights.
 
 ``` ruby
 lifx.post_toggle(selector: 'all')
+```
+
+Set color of lights.
+
+``` ruby
+lifx.put_lights_color(selector: 'all', color: 'blue')
 ```
 
 Perform a breath effect on lights.

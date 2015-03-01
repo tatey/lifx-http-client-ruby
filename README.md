@@ -91,6 +91,14 @@ Perform a pulse effect on lights.
 lifx.post_lights_effect_pulse(selector: 'all', color: 'blue', cycles: 3)
 ```
 
+## Tests
+
+Run the entire test suite.
+
+``` sh
+$ [bundle exec] rspec spec/lib/lifx_http_spec.rb
+```
+
 ## Contributing
 
 1. Fork it (https://github.com/tatey/lifx-http/fork)

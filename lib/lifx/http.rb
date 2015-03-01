@@ -184,9 +184,13 @@ module LIFX
 
     module Loader
       class Device
+        attr_reader :id, :uuid
+
         def self.load(data)
-          # TODO
-          new
+          new(
+            id: data.fetch('id'),
+            uuid: data.fetch('uuid')
+          )
         end
       end
 

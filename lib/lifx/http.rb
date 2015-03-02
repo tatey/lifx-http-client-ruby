@@ -213,12 +213,13 @@ module LIFX
       class Device
         include Equatable
 
-        attr_reader :id, :uuid, :label, :power, :color, :brightness,
-          :group, :location, :last_seen, :seconds_since_seen
+        attr_reader :id, :uuid, :label, :connected, :power, :color,
+          :brightness, :group, :location, :last_seen, :seconds_since_seen
 
         def initialize(data)
           @id = data.fetch('id')
           @uuid = data.fetch('uuid')
+          @connected = data.fetch('connected')
           @power = data.fetch('power')
           @color = Color.new(data.fetch('color'))
           @brightness = data.fetch('brightness')
@@ -228,10 +229,15 @@ module LIFX
           @seconds_since_seen = data.fetch('seconds_since_seen')
         end
 
+        def connected?
+          connected
+        end
+
         def to_h
           {
             id: id,
             uuid: uuid,
+            connected: connected,
             power: power,
             color: color.to_h,
             brightness: brightness,
@@ -287,6 +293,18 @@ module LIFX
         def initialize(data)
           @id = data.fetch('id')
           @status = data.fetch('status')
+        end
+
+        def ok?
+          status == 'ok'
+        end
+
+        def timed_out?
+          status == 'timed_out'
+        end
+
+        def offline?
+          status == 'offline'
         end
 
         def to_h

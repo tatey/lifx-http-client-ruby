@@ -110,7 +110,7 @@ single object is returned. This makes it easier to consume the result.
 Run the entire test suite.
 
 ``` sh
-$ [bundle exec] rspec spec/
+$ [bundle exec] rspec
 ```
 
 ## Contributing

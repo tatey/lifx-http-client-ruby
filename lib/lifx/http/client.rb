@@ -1,5 +1,7 @@
 require 'lifx/http/connection'
 require 'lifx/http/response'
+require 'lifx/http/loader/device'
+require 'lifx/http/loader/result'
 
 module LIFX
   module HTTP

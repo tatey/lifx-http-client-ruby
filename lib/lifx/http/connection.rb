@@ -1,4 +1,5 @@
 require 'net/http'
+require 'openssl'
 require 'uri'
 require 'lifx/http/version'
 

@@ -17,7 +17,7 @@ response.object   # => [#<Result @id='43b2f2d97452', @status='ok'>, ...]
 Add this line to your Gemfile.
 
 ``` ruby
-gem 'lifx-http', github: 'tatey/lifx-http-client-ruby'
+gem 'lifx-http', require: 'lifx/http', github: 'tatey/lifx-http-client-ruby'
 ```
 
 Run bundler to install it.

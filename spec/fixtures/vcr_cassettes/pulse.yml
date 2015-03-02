@@ -1,0 +1,50 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.lifx.com/v1beta1/lights/all/effects/pulse
+    body:
+      encoding: US-ASCII
+      string: color=blue
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - application/json
+      User-Agent:
+      - LIFX/0.0.1 Ruby/2.1.5-x86_64-darwin14.0
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Authorization:
+      - Bearer c72e2adc43df5aafed4f3f95df724f64f224539fc67ca39b2f71169f5fdf8c4f
+  response:
+    status:
+      code: 207
+      message: Multi-Status
+    headers:
+      Server:
+      - cloudflare-nginx
+      Date:
+      - Mon, 02 Mar 2015 08:54:47 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=d28347d81a5f2aa10651fc3c6e4d148f61425286485; expires=Tue, 01-Mar-16
+        08:54:45 GMT; path=/; domain=.lifx.com; HttpOnly
+      Lifx-Account-Uuid:
+      - 7ffee936-19ab-4c70-b377-d3fc7a4d017f
+      Vary:
+      - Accept-Encoding
+      Cf-Ray:
+      - 1c0be0f5e7090b26-SYD
+    body:
+      encoding: UTF-8
+      string: '[{"id":"d073d5017100","label":"Bright 1","status":"ok"},{"id":"d073d501b030","label":"Bright
+        0","status":"ok"}]'
+    http_version: 
+  recorded_at: Mon, 02 Mar 2015 08:54:46 GMT
+recorded_with: VCR 2.9.3

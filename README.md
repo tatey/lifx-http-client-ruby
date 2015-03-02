@@ -46,7 +46,7 @@ response = lifx.set_lights_power(selector: 'all', state: 'off').success! # => LI
 
 # Success
 response = lifx.set_lights_power(selector: 'all', state: 'on').success!
-response.object # => [#<LIFX::HTTP::Loader::Result id: '43b2f2d97452', status: 'ok'>, ...]
+response.object # => [#<LIFX::HTTP::Loader::Result @id='43b2f2d97452', @status='ok'>, ...]
 ```
 
 ### List of operations
@@ -55,49 +55,49 @@ Get all lights.
 
 ``` ruby
 lifx.lights
-response.object # => [#<LIFX::HTTP::Loader::Device id: '43b2f2d97452', ...>, ...]
+response.object # => [#<LIFX::HTTP::Loader::Device @id='43b2f2d97452', ...>, ...]
 ```
 
 Get only the lights which match the given selector.
 
 ``` ruby
 response = lifx.lights(selector: 'id:43b2f2d97452')
-response.object # => [#<LIFX::HTTP::Loader::Device id: '43b2f2d97452', ...>, ...]
+response.object # => [#<LIFX::HTTP::Loader::Device @id='43b2f2d97452', ...>, ...]
 ```
 
 Turns the lights on or off.
 
 ``` ruby
 response = lifx.set_lights_power(selector: 'all', state: 'on')
-response.object # => [#<LIFX::HTTP::Loader::Result id: '43b2f2d97452', status: 'ok'>, ...]
+response.object # => [#<LIFX::HTTP::Loader::Result @id='43b2f2d97452', @status='ok'>, ...]
 ```
 
 Toggle the lights between on and off.
 
 ``` ruby
 response = lifx.toggle(selector: 'all')
-response.object # => [#<LIFX::HTTP::Loader::Result id: '43b2f2d97452', status: 'ok'>, ...]
+response.object # => [#<LIFX::HTTP::Loader::Result @id='43b2f2d97452', @status='ok'>, ...]
 ```
 
 Change the color of the lights.
 
 ``` ruby
 response = lifx.set_color(selector: 'all', color: 'blue')
-response.object # => [#<LIFX::HTTP::Loader::Result id: '43b2f2d97452', status: 'ok'>, ...]
+response.object # => [#<LIFX::HTTP::Loader::Result @id='43b2f2d97452', @status='ok'>, ...]
 ```
 
 Run the breathe effect on the lights.
 
 ``` ruby
 response = lifx.run_breathe_effect(selector: 'all', color: 'blue', cycles: 3)
-response.object # => [#<LIFX::HTTP::Loader::Result id: '43b2f2d97452', status: 'ok'>, ...]
+response.object # => [#<LIFX::HTTP::Loader::Result @id='43b2f2d97452', @status='ok'>, ...]
 ```
 
 Run the pulse effect on the lights.
 
 ``` ruby
 response = lifx.run_pulse_effect(selector: 'all', color: 'blue', cycles: 3)
-response.object # => [#<LIFX::HTTP::Loader::Result id: '43b2f2d97452', status: 'ok'>, ...]
+response.object # => [#<LIFX::HTTP::Loader::Result @id='43b2f2d97452', @status='ok'>, ...]
 ```
 
 ### Differences from the API

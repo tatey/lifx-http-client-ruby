@@ -1,6 +1,7 @@
 # LIFX::HTTP
 
-A nice Ruby client for the LIFX HTTP API. No external dependencies.
+A nice Ruby client for the LIFX HTTP API that has external dependencies.
+Generate a personal access token at https://cloud.lifx.com/settings.
 
 ``` ruby
 lifx     = LIFX::HTTP::Client.new(access_token: 'c87c73a896b554367fac61f71dd3656af8d93a525a4e87df5952c6078a89d192')
@@ -96,7 +97,7 @@ lifx.run_pulse_effect(selector: 'all', color: 'blue', cycles: 3)
 Run the entire test suite.
 
 ``` sh
-$ [bundle exec] rspec spec/lib/lifx_http_spec.rb
+$ [bundle exec] rspec spec/
 ```
 
 ## Contributing

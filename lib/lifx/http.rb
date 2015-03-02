@@ -1,4 +1,5 @@
 require 'net/http'
+require 'time'
 require 'uri'
 
 require 'lifx/http/version'
@@ -104,16 +105,16 @@ module LIFX
       end
 
       def body
-        JSON.parse(body)
+        JSON.parse(@raw.body)
       end
 
       def object
         return unless success?
 
         if body.is_a?(Array)
-          body.map { |item| @loader.load(item) }
+          body.map { |data| @loader.new(data) }
         else
-          @loader.load(body)
+          @loader.new(body)
         end
       end
 
@@ -183,21 +184,109 @@ module LIFX
     end
 
     module Loader
-      class Device
-        attr_reader :id, :uuid
+      module Equatable
+        def ==(other)
+          other.is_a?(self.class) && other.to_h == to_h
+        end
+      end
 
-        def self.load(data)
-          new(
-            id: data.fetch('id'),
-            uuid: data.fetch('uuid')
-          )
+      class Color
+        include Equatable
+
+        attr_reader :hue, :saturation, :kelvin
+
+        def initialize(data)
+          @hue = data.fetch('hue')
+          @saturation = data.fetch('saturation')
+          @kelvin = data.fetch('kelvin')
+        end
+
+        def to_h
+          {
+            hue: hue,
+            saturation: saturation,
+            kelvin: kelvin
+          }
+        end
+      end
+
+      class Device
+        include Equatable
+
+        attr_reader :id, :uuid, :label, :power, :color, :brightness,
+          :group, :location, :last_seen, :seconds_since_seen
+
+        def initialize(data)
+          @id = data.fetch('id')
+          @uuid = data.fetch('uuid')
+          @power = data.fetch('power')
+          @color = Color.new(data.fetch('color'))
+          @brightness = data.fetch('brightness')
+          @group = Group.new(data.fetch('group'))
+          @location = Location.new(data.fetch('location'))
+          @last_seen = Time.parse(data.fetch('last_seen'))
+          @seconds_since_seen = data.fetch('seconds_since_seen')
+        end
+
+        def to_h
+          {
+            id: id,
+            uuid: uuid,
+            power: power,
+            color: color.to_h,
+            brightness: brightness,
+            group: group.to_h,
+            location: location.to_h,
+            last_seen: last_seen,
+            seconds_since_seen: seconds_since_seen,
+          }
+        end
+      end
+
+      class Group
+        include Equatable
+
+        attr_reader :id, :name
+
+        def initialize(data)
+          @id = data.fetch('id')
+          @name = data.fetch('name')
+        end
+
+        def to_h
+          {
+            id: id,
+            name: name
+          }
+        end
+      end
+
+      class Location
+        include Equatable
+
+        attr_reader :id, :name
+
+        def initialize(data)
+          @id = data.fetch('id')
+          @name = data.fetch('name')
+        end
+
+        def to_h
+          {
+            id: id,
+            name: name
+          }
         end
       end
 
       class Result
+        include Equatable
+
         attr_reader :id, :status
 
-        def initialize(id:, status:)
+        def initialize(data)
+          @id = data.fetch('id')
+          @status = data.fetch('status')
         end
 
         def to_h
@@ -205,13 +294,6 @@ module LIFX
             id: id,
             status: status
           }
-        end
-
-        def self.load(data)
-          new(
-            id: data.fetch('id'),
-            status: data.fetch('status')
-          )
         end
       end
     end

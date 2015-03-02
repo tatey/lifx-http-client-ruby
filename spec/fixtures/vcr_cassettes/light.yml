@@ -12,7 +12,7 @@ http_interactions:
       Accept:
       - application/json
       User-Agent:
-      - LIFX/0.0.1 Ruby/2.1.5-x86_64-darwin14.0
+      - <%= user_agent %>
       Authorization:
       - Bearer c72e2adc43df5aafed4f3f95df724f64f224539fc67ca39b2f71169f5fdf8c4f
   response:

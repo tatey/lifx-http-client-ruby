@@ -14,6 +14,10 @@ module LIFX
         @connection = Connection.new(access_token: access_token)
       end
 
+      def user_agent
+        @connection.user_agent
+      end
+
       def lights(selector: 'all')
         Response.new(
           raw: @connection.get(path: "/v1beta1/lights/#{selector}"),
@@ -142,6 +146,8 @@ module LIFX
     class Connection
       BASE_URI = URI.parse('https://api.lifx.com')
       USER_AGENT = "LIFX/#{VERSION} Ruby/#{RUBY_VERSION}-#{RUBY_PLATFORM}"
+
+      attr_reader :user_agent
 
       def initialize(access_token:, base_uri: BASE_URI, user_agent: USER_AGENT)
         @access_token = access_token

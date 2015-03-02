@@ -5,6 +5,37 @@ require 'pry'
 RSpec.describe LIFX::HTTP::Client do
   let(:client) { LIFX::HTTP::Client.new(access_token: 'c72e2adc43df5aafed4f3f95df724f64f224539fc67ca39b2f71169f5fdf8c4f') }
 
+  it 'gets a light' do
+    VCR.use_cassette('light') do
+      response = client.lights(selector: 'id:d073d5017100')
+
+      expect(response).to be_success
+      expect(response.object).to eq(LIFX::HTTP::Loader::Device.new(
+        'id' => 'd073d5017100',
+        'uuid' => '02780349-7558-4842-84bb-8a98778eefd5',
+        'label' => 'Bright 1',
+        'connected' => true,
+        'power' => 'off',
+        'color' => {
+          'hue' => 249.9977111467155,
+          'saturation' => 1.0,
+          'kelvin' => 3500
+        },
+        'brightness' => 0.0,
+        'group' => {
+          'id' => '1c8de82b81f445e7cfaafae49b259c71',
+          'name' => 'Test Group'
+        },
+        'location' => {
+          'id' => '1d6fe8ef0fde4c6d77b0012dc736662c',
+          'name' => 'Test Location'
+        },
+        'last_seen' => '2015-03-02T10:03:46.848+00:00',
+        'seconds_since_seen' => 0.002248558
+      ))
+    end
+  end
+
   it 'gets lights' do
     VCR.use_cassette('lights') do
       response = client.lights

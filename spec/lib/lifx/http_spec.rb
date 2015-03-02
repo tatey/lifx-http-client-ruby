@@ -7,7 +7,7 @@ RSpec.describe LIFX::HTTP::Client do
 
   it 'gets lights' do
     VCR.use_cassette('lights') do
-      response = client.get_lights
+      response = client.lights
 
       expect(response).to be_success
       expect(response.object.count).to eq(2)
@@ -39,7 +39,7 @@ RSpec.describe LIFX::HTTP::Client do
 
   it 'puts power' do
     VCR.use_cassette('power') do
-      response = client.put_power(selector: 'all', state: 'off')
+      response = client.set_lights_power(selector: 'all', state: 'off')
 
       expect(response).to be_success
       expect(response.object.count).to eq(2)
@@ -53,7 +53,7 @@ RSpec.describe LIFX::HTTP::Client do
 
   it 'posts toggle' do
     VCR.use_cassette('toggle') do
-      response = client.post_toggle(selector: 'all')
+      response = client.set_lights_toggle(selector: 'all')
 
       expect(response).to be_success
       expect(response.object.count).to eq(2)
@@ -67,7 +67,7 @@ RSpec.describe LIFX::HTTP::Client do
 
   it 'puts color' do
     VCR.use_cassette('color') do
-      response = client.put_lights_color(selector: 'all', color: 'blue')
+      response = client.set_lights_color(selector: 'all', color: 'blue')
 
       expect(response).to be_success
       expect(response.object.count).to eq(2)
@@ -81,7 +81,7 @@ RSpec.describe LIFX::HTTP::Client do
 
   it 'posts breathe' do
     VCR.use_cassette('breathe') do
-      response = client.post_lights_effect_breathe(selector: 'all', color: 'blue')
+      response = client.run_lights_breathe_effect(selector: 'all', color: 'blue')
 
       expect(response).to be_success
       expect(response.object.count).to eq(2)
@@ -95,7 +95,7 @@ RSpec.describe LIFX::HTTP::Client do
 
   it 'posts pulse' do
     VCR.use_cassette('pulse') do
-      response = client.post_lights_effect_pulse(selector: 'all', color: 'blue')
+      response = client.run_lights_pulse_effect(selector: 'all', color: 'blue')
 
       expect(response).to be_success
       expect(response.object.count).to eq(2)

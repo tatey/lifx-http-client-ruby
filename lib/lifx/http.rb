@@ -14,7 +14,7 @@ module LIFX
         @connection = Connection.new(access_token: access_token)
       end
 
-      def get_lights(selector: 'all')
+      def lights(selector: 'all')
         Response.new(
           raw: @connection.get(path: "/v1beta1/lights/#{selector}"),
           loader: Loader::Device,
@@ -22,7 +22,7 @@ module LIFX
         )
       end
 
-      def put_power(selector:, state:)
+      def set_lights_power(selector:, state:)
         Response.new(
           raw: @connection.put(
             path: "/v1beta1/lights/#{selector}/power",
@@ -33,7 +33,7 @@ module LIFX
         )
       end
 
-      def post_toggle(selector:)
+      def set_lights_toggle(selector:)
         Response.new(
           raw: @connection.post(path: "/v1beta1/lights/#{selector}/toggle"),
           loader: Loader::Result,
@@ -41,7 +41,7 @@ module LIFX
         )
       end
 
-      def put_lights_color(selector:, color:, duration: nil, power_on: nil)
+      def set_lights_color(selector:, color:, duration: nil, power_on: nil)
         Response.new(
           raw: @connection.put(
             path: "/v1beta1/lights/#{selector}/color",
@@ -52,7 +52,7 @@ module LIFX
         )
       end
 
-      def post_lights_effect_breathe(selector:, color:, from_color: nil, period: nil, cycles: nil, persist: nil, power_on: nil, peak: nil)
+      def run_lights_breathe_effect(selector:, color:, from_color: nil, period: nil, cycles: nil, persist: nil, power_on: nil, peak: nil)
         Response.new(
           raw: @connection.post(
             path: "/v1beta1/lights/#{selector}/effects/breathe",
@@ -71,7 +71,7 @@ module LIFX
         )
       end
 
-      def post_lights_effect_pulse(selector:, color:, from_color: nil, period: nil, cycles: nil, persist: nil, power_on: nil, duty_cycle: nil)
+      def run_lights_pulse_effect(selector:, color:, from_color: nil, period: nil, cycles: nil, persist: nil, power_on: nil, duty_cycle: nil)
         Response.new(
           raw: @connection.post(
             path: "/v1beta1/lights/#{selector}/effects/pulse",

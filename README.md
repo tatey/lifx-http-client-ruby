@@ -30,7 +30,7 @@ $ bundle
 Use the `success?` predicate to determine if the response was successful.
 
 ``` ruby
-response = lifx.put_power(selector: 'all', state: 'on')
+response = lifx.set_lights_power(selector: 'all', state: 'on')
 response.success? # => true
 response.object   # => [#<Result id: '43b2f2d97452', status: 'ok'>]
 ```
@@ -40,10 +40,10 @@ on success.
 
 ``` ruby
 # Failure
-response = lifx.put_power(selector: 'all', state: 'off').success! # => LIFX::HTTP:UnexpectedStatusError
+response = lifx.set_lights_power(selector: 'all', state: 'off').success! # => LIFX::HTTP:UnexpectedStatusError
 
 # Success
-response = lifx.put_power(selector: 'all', state: 'on').success!
+response = lifx.set_lights_power(selector: 'all', state: 'on').success!
 response.object # => [#<Result id: '43b2f2d97452', status: 'ok'>]
 ```
 
@@ -52,43 +52,43 @@ response.object # => [#<Result id: '43b2f2d97452', status: 'ok'>]
 Get all lights.
 
 ``` ruby
-lifx.get_lights
+lifx.lights
 ```
 
-Get a subset of lights.
+Get only the lights which match the given selector.
 
 ``` ruby
-lifx.get_lights(selector: 'id:43b2f2d97452')
+lifx.lights(selector: 'id:43b2f2d97452')
 ```
 
-Set the power state of the lights.
+Turns the lights on or off.
 
 ``` ruby
-lifx.put_power(selector: 'all', state: 'on')
+lifx.set_lights_power(selector: 'all', state: 'on')
 ```
 
-Toggle the power state of the lights.
+Toggle the lights between on and off.
 
 ``` ruby
-lifx.post_toggle(selector: 'all')
+lifx.toggle(selector: 'all')
 ```
 
-Set color of lights.
+Change the color of the lights.
 
 ``` ruby
-lifx.put_lights_color(selector: 'all', color: 'blue')
+lifx.set_color(selector: 'all', color: 'blue')
 ```
 
-Perform a breath effect on lights.
+Run the breathe effect on the lights.
 
 ``` ruby
-lifx.post_lights_effect_breathe(selector: 'all', color: 'blue', cycles: 3)
+lifx.run_breathe_effect(selector: 'all', color: 'blue', cycles: 3)
 ```
 
-Perform a pulse effect on lights.
+Run the pulse effect on the lights.
 
 ``` ruby
-lifx.post_lights_effect_pulse(selector: 'all', color: 'blue', cycles: 3)
+lifx.run_pulse_effect(selector: 'all', color: 'blue', cycles: 3)
 ```
 
 ## Tests

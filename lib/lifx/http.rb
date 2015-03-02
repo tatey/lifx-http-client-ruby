@@ -114,7 +114,7 @@ module LIFX
         if body.is_a?(Array)
           body.map { |data| @loader.new(data) }
         else
-          @loader.new(body)
+          [@loader.new(body)]
         end
       end
 

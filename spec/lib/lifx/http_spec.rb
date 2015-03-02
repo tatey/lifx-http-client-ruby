@@ -10,7 +10,8 @@ RSpec.describe LIFX::HTTP::Client do
       response = client.lights(selector: 'id:d073d5017100')
 
       expect(response).to be_success
-      expect(response.object).to eq(LIFX::HTTP::Loader::Device.new(
+      expect(response.object.count).to eq(1)
+      expect(response.object.first).to eq(LIFX::HTTP::Loader::Device.new(
         'id' => 'd073d5017100',
         'uuid' => '02780349-7558-4842-84bb-8a98778eefd5',
         'label' => 'Bright 1',

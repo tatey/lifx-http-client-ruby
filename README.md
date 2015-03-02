@@ -5,9 +5,9 @@ Generate a personal access token at https://cloud.lifx.com/settings.
 
 ``` ruby
 lifx     = LIFX::HTTP::Client.new(access_token: 'c87c73a896b554367fac61f71dd3656af8d93a525a4e87df5952c6078a89d192')
-response = lifx.put_lights_color(selector: 'all', color: 'blue', duration: 3)
+response = lifx.set_lights_color(selector: 'all', color: 'blue', duration: 3)
 response.success? # => true
-response.object   # => [#<Result id: '43b2f2d97452', status: 'ok'>]
+response.object   # => [#<Result @id='43b2f2d97452', @status='ok'>, ...]
 ```
 
 ## Installation
@@ -32,8 +32,9 @@ Use the `success?` predicate to determine if the response was successful.
 
 ``` ruby
 response = lifx.set_lights_power(selector: 'all', state: 'on')
-response.success? # => true
-response.object   # => [#<Result id: '43b2f2d97452', status: 'ok'>]
+if response.success?
+  response.object # => [#<LIFX::HTTP::Loader::Result @id='43b2f2d97452', @status='ok'>, ...]
+end
 ```
 
 Alternatively, you can opt-in to an exception on failure or `self`
@@ -45,7 +46,7 @@ response = lifx.set_lights_power(selector: 'all', state: 'off').success! # => LI
 
 # Success
 response = lifx.set_lights_power(selector: 'all', state: 'on').success!
-response.object # => [#<Result id: '43b2f2d97452', status: 'ok'>]
+response.object # => [#<LIFX::HTTP::Loader::Result id: '43b2f2d97452', status: 'ok'>, ...]
 ```
 
 ### List of operations
@@ -54,43 +55,55 @@ Get all lights.
 
 ``` ruby
 lifx.lights
+response.object # => [#<LIFX::HTTP::Loader::Device id: '43b2f2d97452', ...>, ...]
 ```
 
 Get only the lights which match the given selector.
 
 ``` ruby
-lifx.lights(selector: 'id:43b2f2d97452')
+response = lifx.lights(selector: 'id:43b2f2d97452')
+response.object # => [#<LIFX::HTTP::Loader::Device id: '43b2f2d97452', ...>, ...]
 ```
 
 Turns the lights on or off.
 
 ``` ruby
-lifx.set_lights_power(selector: 'all', state: 'on')
+response = lifx.set_lights_power(selector: 'all', state: 'on')
+response.object # => [#<LIFX::HTTP::Loader::Result id: '43b2f2d97452', status: 'ok'>, ...]
 ```
 
 Toggle the lights between on and off.
 
 ``` ruby
-lifx.toggle(selector: 'all')
+response = lifx.toggle(selector: 'all')
+response.object # => [#<LIFX::HTTP::Loader::Result id: '43b2f2d97452', status: 'ok'>, ...]
 ```
 
 Change the color of the lights.
 
 ``` ruby
-lifx.set_color(selector: 'all', color: 'blue')
+response = lifx.set_color(selector: 'all', color: 'blue')
+response.object # => [#<LIFX::HTTP::Loader::Result id: '43b2f2d97452', status: 'ok'>, ...]
 ```
 
 Run the breathe effect on the lights.
 
 ``` ruby
-lifx.run_breathe_effect(selector: 'all', color: 'blue', cycles: 3)
+response = lifx.run_breathe_effect(selector: 'all', color: 'blue', cycles: 3)
+response.object # => [#<LIFX::HTTP::Loader::Result id: '43b2f2d97452', status: 'ok'>, ...]
 ```
 
 Run the pulse effect on the lights.
 
 ``` ruby
-lifx.run_pulse_effect(selector: 'all', color: 'blue', cycles: 3)
+response = lifx.run_pulse_effect(selector: 'all', color: 'blue', cycles: 3)
+response.object # => [#<LIFX::HTTP::Loader::Result id: '43b2f2d97452', status: 'ok'>, ...]
 ```
+
+### Differences from the API
+
+All successful responses will contain an array of objects, even if a
+single object is returned. This makes it easier to consume the result.
 
 ## Tests
 

@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/tatey/lifx-http-client-ruby.svg?branch=master)](https://travis-ci.org/tatey/lifx-http-client-ruby)
 
-A nice Ruby client for the LIFX HTTP API that has external dependencies.
+A nice Ruby client for the LIFX HTTP API that has *no* external dependencies.
 Generate a personal access token at https://cloud.lifx.com/settings.
 
 ``` ruby

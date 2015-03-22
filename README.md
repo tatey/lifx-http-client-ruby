@@ -56,7 +56,7 @@ response.results # => [#<LIFX::HTTP::Loader::Result id: "43b2f2d97452", status: 
 Get all lights.
 
 ``` ruby
-lifx.lights
+response = lifx.lights
 response.lights # => [#<LIFX::HTTP::Loader::Device id: "d073d5017100", uuid: "02780349-7558-4842-84bb-8a98778eefd5", label: "Lefty", connected: true, power: "off", brightness: 0.0, color: #<LIFX::HTTP::Loader::Color hue: 249.9977111467155, saturation: 1.0, kelvin: 3500>, group: #<LIFX::HTTP::Loader::Group id: "1c8de82b81f445e7cfaafae49b259c71", name: "Test Group">, location: #<LIFX::HTTP::Loader::Location id: "1d6fe8ef0fde4c6d77b0012dc736662c", name: "Test Location">, last_seen: 2015-03-02 20:03:46 +1000, seconds_since_seen: 0.002248558>, ...]
 ```
 

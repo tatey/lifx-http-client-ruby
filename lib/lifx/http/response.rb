@@ -23,6 +23,8 @@ module LIFX
           [@loader.new(body)]
         end
       end
+      alias_method :lights, :object
+      alias_method :statuses, :object
 
       def headers
         @raw.each_header.to_h

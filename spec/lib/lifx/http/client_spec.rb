@@ -13,8 +13,8 @@ RSpec.describe LIFX::HTTP::Client do
       response = client.lights(selector: 'id:d073d5017100')
 
       expect(response).to be_success
-      expect(response.object.count).to eq(1)
-      expect(response.object.first).to eq(LIFX::HTTP::Loader::Device.new(
+      expect(response.lights.count).to eq(1)
+      expect(response.lights.first).to eq(LIFX::HTTP::Loader::Device.new(
         'id' => 'd073d5017100',
         'uuid' => '02780349-7558-4842-84bb-8a98778eefd5',
         'label' => 'Bright 1',
@@ -45,8 +45,8 @@ RSpec.describe LIFX::HTTP::Client do
       response = client.lights
 
       expect(response).to be_success
-      expect(response.object.count).to eq(2)
-      expect(response.object.first).to eq(LIFX::HTTP::Loader::Device.new(
+      expect(response.lights.count).to eq(2)
+      expect(response.lights.first).to eq(LIFX::HTTP::Loader::Device.new(
         'id' => 'd073d5017100',
         'uuid' => '02780349-7558-4842-84bb-8a98778eefd5',
         'label' => 'Bright 1',
@@ -77,8 +77,8 @@ RSpec.describe LIFX::HTTP::Client do
       response = client.set_lights_power(selector: 'all', state: 'off')
 
       expect(response).to be_success
-      expect(response.object.count).to eq(2)
-      expect(response.object.first).to eq(LIFX::HTTP::Loader::Result.new(
+      expect(response.statuses.count).to eq(2)
+      expect(response.statuses.first).to eq(LIFX::HTTP::Loader::Result.new(
         'id' => 'd073d5017100',
         'label' => 'Bright 1',
         'status' => 'ok'
@@ -91,8 +91,8 @@ RSpec.describe LIFX::HTTP::Client do
       response = client.set_lights_toggle(selector: 'all')
 
       expect(response).to be_success
-      expect(response.object.count).to eq(2)
-      expect(response.object.first).to eq(LIFX::HTTP::Loader::Result.new(
+      expect(response.statuses.count).to eq(2)
+      expect(response.statuses.first).to eq(LIFX::HTTP::Loader::Result.new(
         'id' => 'd073d5017100',
         'label' => 'Bright 1',
         'status' => 'ok'
@@ -105,8 +105,8 @@ RSpec.describe LIFX::HTTP::Client do
       response = client.set_lights_color(selector: 'all', color: 'blue')
 
       expect(response).to be_success
-      expect(response.object.count).to eq(2)
-      expect(response.object.first).to eq(LIFX::HTTP::Loader::Result.new(
+      expect(response.statuses.count).to eq(2)
+      expect(response.statuses.first).to eq(LIFX::HTTP::Loader::Result.new(
         'id' => 'd073d5017100',
         'label' => 'Bright 1',
         'status' => 'ok'
@@ -119,8 +119,8 @@ RSpec.describe LIFX::HTTP::Client do
       response = client.run_lights_breathe_effect(selector: 'all', color: 'blue')
 
       expect(response).to be_success
-      expect(response.object.count).to eq(2)
-      expect(response.object.first).to eq(LIFX::HTTP::Loader::Result.new(
+      expect(response.statuses.count).to eq(2)
+      expect(response.statuses.first).to eq(LIFX::HTTP::Loader::Result.new(
         'id' => 'd073d5017100',
         'label' => 'Bright 1',
         'status' => 'ok'
@@ -133,8 +133,8 @@ RSpec.describe LIFX::HTTP::Client do
       response = client.run_lights_pulse_effect(selector: 'all', color: 'blue')
 
       expect(response).to be_success
-      expect(response.object.count).to eq(2)
-      expect(response.object.first).to eq(LIFX::HTTP::Loader::Result.new(
+      expect(response.statuses.count).to eq(2)
+      expect(response.statuses.first).to eq(LIFX::HTTP::Loader::Result.new(
         'id' => 'd073d5017100',
         'label' => 'Bright 1',
         'status' => 'ok'

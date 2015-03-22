@@ -21,7 +21,7 @@ module LIFX
         end
       end
       alias_method :lights, :body
-      alias_method :statuses, :body
+      alias_method :results, :body
 
       def headers
         @raw.each_header.to_h

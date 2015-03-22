@@ -7,7 +7,7 @@ require 'lifx/http/loader/location'
 module LIFX
   module HTTP
     module Loader
-      class Device
+      class Light
         include Equatable
 
         attr_reader :id, :uuid, :label, :connected, :power, :color,

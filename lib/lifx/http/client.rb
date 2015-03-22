@@ -1,6 +1,6 @@
 require 'lifx/http/connection'
 require 'lifx/http/response'
-require 'lifx/http/loader/device'
+require 'lifx/http/loader/light'
 require 'lifx/http/loader/result'
 
 module LIFX
@@ -17,7 +17,7 @@ module LIFX
       def lights(selector: 'all')
         Response.new(
           raw: @connection.get(path: "/v1beta1/lights/#{selector}"),
-          loader: Loader::Device,
+          loader: Loader::Light,
           expects: [200]
         )
       end

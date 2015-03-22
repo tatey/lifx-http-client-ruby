@@ -1,22 +1,22 @@
-require 'lifx/http/loader/device'
+require 'lifx/http/loader/light'
 
-RSpec.describe LIFX::HTTP::Loader::Device do
+RSpec.describe LIFX::HTTP::Loader::Light do
   it 'is connected' do
-    expect(new_device('connected' => true)).to be_connected
+    expect(new_light('connected' => true)).to be_connected
   end
 
   it 'is not connected' do
-    expect(new_device('connected' => false)).to_not be_connected
+    expect(new_light('connected' => false)).to_not be_connected
   end
 
   it 'parses the last_seen timestamp' do
-    device = new_device(last_seen: '2015-03-02T10:03:46.848+00:00')
+    light = new_light(last_seen: '2015-03-02T10:03:46.848+00:00')
 
-    expect(device.last_seen.to_i).to eq(1425290626)
+    expect(light.last_seen.to_i).to eq(1425290626)
   end
 
-  def new_device(overrides = {})
-    LIFX::HTTP::Loader::Device.new({
+  def new_light(overrides = {})
+    LIFX::HTTP::Loader::Light.new({
       'id' => 'd073d5017100',
       'uuid' => '02780349-7558-4842-84bb-8a98778eefd5',
       'label' => 'Bright 1',

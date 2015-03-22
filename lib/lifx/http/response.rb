@@ -11,20 +11,17 @@ module LIFX
       end
 
       def body
-        JSON.parse(@raw.body)
-      end
-
-      def object
         return unless success?
 
-        if body.is_a?(Array)
-          body.map { |data| @loader.new(data) }
+        data = JSON.parse(@raw.body)
+        if data.is_a?(Array)
+          data.map { |d| @loader.new(d) }
         else
-          [@loader.new(body)]
+          [@loader.new(data)]
         end
       end
-      alias_method :lights, :object
-      alias_method :statuses, :object
+      alias_method :lights, :body
+      alias_method :statuses, :body
 
       def headers
         @raw.each_header.to_h
@@ -44,6 +41,10 @@ module LIFX
 
       def success?
         @expects.include?(status)
+      end
+
+      def inspect
+        %{#<#{self.class.name} status: #{status}, body: #{body.inspect}>}
       end
     end
   end

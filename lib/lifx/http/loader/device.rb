@@ -44,6 +44,10 @@ module LIFX
             seconds_since_seen: seconds_since_seen,
           }
         end
+
+        def inspect
+          %{#<#{self.class.name} id: "#{id}", uuid: "#{uuid}", label: "#{label}", connected: #{connected}, power: "#{power}", brightness: #{brightness}, color: #{color.inspect}, group: #{group.inspect}, location: #{location.inspect}, last_seen: #{last_seen}, seconds_since_seen: #{seconds_since_seen}>}
+        end
       end
     end
   end

@@ -31,6 +31,10 @@ module LIFX
             status: status
           }
         end
+
+        def inspect
+          %{#<#{self.class.name} id: "#{id}", status: "#{status}">}
+        end
       end
     end
   end

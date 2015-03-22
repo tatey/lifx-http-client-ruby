@@ -19,6 +19,10 @@ module LIFX
             name: name
           }
         end
+
+        def inspect
+          %{#<#{self.class.name} id: #{id}, name: #{name}>}
+        end
       end
     end
   end

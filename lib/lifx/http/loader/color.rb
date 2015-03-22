@@ -21,6 +21,10 @@ module LIFX
             kelvin: kelvin
           }
         end
+
+        def inspect
+          %{#<#{self.class.name} hue: #{hue}, saturation: #{saturation}, kelvin: #{kelvin}>}
+        end
       end
     end
   end

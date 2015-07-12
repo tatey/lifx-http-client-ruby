@@ -2,8 +2,9 @@
 
 [![Build Status](https://travis-ci.org/tatey/lifx-http-client-ruby.svg?branch=master)](https://travis-ci.org/tatey/lifx-http-client-ruby)
 
-A nice Ruby client for the LIFX HTTP API that has *no* external dependencies.
-Generate a personal access token at https://cloud.lifx.com/settings.
+A nice Ruby client for the [LIFX HTTP API](http://api.developer.lifx.com/docs) that
+has *no* external dependencies.  Generate a personal access token at
+https://cloud.lifx.com/settings.
 
 ``` ruby
 lifx     = LIFX::HTTP::Client.new(access_token: 'c87c73a896b554367fac61f71dd3656af8d93a525a4e87df5952c6078a89d192')
@@ -11,6 +12,8 @@ response = lifx.set_lights_color(selector: 'all', color: 'blue', duration: 3)
 response.success? # => true
 response.results # => [#<LIFX::HTTP::Loader::Result id: "43b2f2d97452", status: "ok">, ...]
 ```
+
+*Note: This is not an official LIFX project and the API may continue to change.*
 
 ## Installation
 
